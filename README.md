@@ -1,6 +1,6 @@
-# 🔐 SOC Automation Project – Mimikatz Detection & Response
+#  SOC Automation Project – Mimikatz Detection & Response
 
-## 🎯 Objective
+##  Objective
 
 This project demonstrates the creation of a fully automated **Security Operations Center (SOC)** workflow using:
 
@@ -18,7 +18,7 @@ The project focused on:
 
 ---
 
-## 🧠 Skills Learned
+##  Skills Learned
 
 - **SIEM Configuration & Log Ingestion:**  
   Configured Wazuh to ingest Windows + Sysmon telemetry.
@@ -40,7 +40,7 @@ The project focused on:
 
 ---
 
-## 🛠️ Tools & Technologies Used
+##  Tools & Technologies Used
 
 ### Virtualization & Infrastructure
 - VirtualBox (Windows 11 VM)
@@ -63,9 +63,9 @@ The project focused on:
 
 ---
 
-## 🧪 Project Steps & Evidence
+##  Project Steps & Evidence
 
-### 🔹 Step 1: Virtual Environment Setup
+###  Step 1: Virtual Environment Setup
 
 **Goal:** Establish the test environment and baseline telemetry.
 
@@ -79,7 +79,7 @@ The project focused on:
 
 ---
 
-### 🔹 Step 2: Wazuh & TheHive Deployment
+###  Step 2: Wazuh & TheHive Deployment
 
 **Goal:** Install and configure SIEM and Case Management systems.
 
@@ -96,7 +96,7 @@ The project focused on:
 
 ---
 
-### 🔹 Step 3: Custom Detection & Attack Simulation
+###  Step 3: Custom Detection & Attack Simulation
 
 **Goal:** Detect Mimikatz execution using custom logic.
 
@@ -110,7 +110,7 @@ The project focused on:
 
 ---
 
-### 🔹 Step 4: SOAR Automation with Shuffle
+###  Step 4: SOAR Automation with Shuffle
 
 **Goal:** Automate SOC response using workflow orchestration.
 
@@ -126,7 +126,7 @@ The project focused on:
 
 ---
 
-## ✅ Final Result
+##  Final Result
 
 After execution of Mimikatz on the endpoint:
 
