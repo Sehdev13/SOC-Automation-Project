@@ -66,7 +66,6 @@ The project focused on:
 ##  Project Steps & Evidence
 
 
-
 ###  Step 1: Virtual Environment Setup
 
 1. Installed **VirtualBox v7.1** for stable virtualization.
@@ -84,7 +83,7 @@ The project focused on:
 
 5. Took a clean system **snapshot** after Sysmon installation.
 
----
+
 
 ###  Step 2: Wazuh & TheHive Deployment
 
@@ -116,7 +115,10 @@ The project focused on:
 
 8. Verified Windows 11 agent appeared as Active in Wazuh dashboard.
 
- Step 3: Custom Detection & Attack Simulation
+
+
+ ### Step 3: Custom Detection & Attack Simulation
+ 
 1. Modified ossec.conf on Windows agent to ingest:
    ```bash 
    Microsoft-Windows-Sysmon/Operational
@@ -135,29 +137,41 @@ The project focused on:
 
 5. Confirmed alert generation in Wazuh after attack execution.
 
+
 ### Step 4: SOAR Automation using Shuffle
 
 1 Created a new workflow in **Shuffle** and generated a Webhook URL.
+
 2 Configured **Wazuh** to send alerts with **Rule ID: 100002** to Shuffle.
+
 3 Built a **Regex extraction tool** inside Shuffle:
+
   - Extracts the **SHA-256 hash** from Wazuh alert data.
+    
 4 Integrated **VirusTotal API** for automated threat intelligence enrichment.
+
 5 Generated an **API key in TheHive** for the automation service account.
+
 6 Connected **Shuffle with TheHive API**.
+
 7 Enabled automatic alert creation in TheHive using enriched data.
+
+
 
 ##  Final Result
 
+https://github.com/user-attachments/assets/1445fbae-4f92-449b-9217-ec0b848c3e89
+
+
 After execution of Mimikatz on the endpoint:
 
-✔️ Wazuh detected the attack using the custom rule  
-✔️ Shuffle extracted and enriched the hash  
-✔️ VirusTotal provided threat intelligence  
-✔️ TheHive automatically created a SOC alert  
+- Wazuh detected the attack using the custom rule  
+- Shuffle extracted and enriched the hash  
+- VirusTotal provided threat intelligence  
+- TheHive automatically created a SOC alert  
 
 This confirmed a successful **end-to-end SOC automation pipeline**.
 
----
 
 ##  Outcome
 
@@ -171,5 +185,5 @@ This project demonstrates a real-world SOC workflow that combines:
 
 It reflects how modern SOCs automate detection and response to reduce human effort and response time.
 
----
+
 
