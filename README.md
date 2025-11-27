@@ -16,7 +16,7 @@ The project focused on:
 - Enriching alerts via threat intelligence  
 - Automating incident creation in a SOC platform  
 
----
+
 
 ##  Skills Learned
 
@@ -38,7 +38,7 @@ The project focused on:
 - **API Integrations:**  
   Integrated Wazuh, Shuffle, VirusTotal, and TheHive using webhooks and API keys.
 
----
+
 
 ##  Tools & Technologies Used
 
@@ -61,70 +61,90 @@ The project focused on:
 - Apache Cassandra  
 - Elasticsearch  
 
----
+
 
 ##  Project Steps & Evidence
 
+
+
 ###  Step 1: Virtual Environment Setup
 
-**Goal:** Establish the test environment and baseline telemetry.
+1. Installed **VirtualBox v7.1** for stable virtualization.
 
-| Ref | Description |
-|----|-------------|
-| Ref 1 | Installed VirtualBox (v7.1 for stability) |
-| Ref 2 | Created Windows 11 VM (8GB RAM, 80GB HDD) |
-| Ref 3 | Deployed two Ubuntu cloud servers (Wazuh & TheHive) |
-| Ref 4 | Installed Sysmon with Olaf Sysmon Config |
-| Ref 5 | Created VM snapshot after Sysmon setup |
+2. Created a **Windows 11 VM**:
+   - 8 GB RAM  
+   - 80 GB Storage  
+   - Endpoint system for generating security telemetry.
+
+3. Deployed two **Ubuntu cloud servers**:
+   - Server 1: Wazuh Manager  
+   - Server 2: TheHive Server  
+
+4. Installed **Sysmon** on Windows using the Olaf configuration file.
+
+5. Took a clean system **snapshot** after Sysmon installation.
 
 ---
 
 ###  Step 2: Wazuh & TheHive Deployment
 
-**Goal:** Install and configure SIEM and Case Management systems.
+1. Installed **Wazuh Manager** using the official quick-start script.
 
-| Ref | Description |
-|----|-------------|
-| Ref 6 | Installed Wazuh Manager |
-| Ref 7 | Installed Java, Cassandra, Elasticsearch |
-| Ref 8 | Configured databases to bind to public IP |
-| Ref 9 | Opened Port 9000 on TheHive server (UFW rule) |
-| Ref 10 | Successful login to TheHive interface |
-| Ref 11 | Deployed Wazuh Agent on Windows 11 |
-| Ref 12 | Opened Ports 1514 & 1515 for agent communication |
-| Ref 13 | Verified active agent in Wazuh |
+2. Installed required TheHive dependencies:
+   - Java  
+   - Apache Cassandra  
+   - Elasticsearch  
 
----
+3. Updated Cassandra and Elasticsearch configs:
+   - Modified `listen_address`
+   - Modified `rpc_address`
+   - Modified `network.host`
+   - Set all to server public IP instead of localhost.
 
-###  Step 3: Custom Detection & Attack Simulation
+4. Opened TheHive port:
+   ```bash
+   ufw allow 9000
 
-**Goal:** Detect Mimikatz execution using custom logic.
+5. Successfully logged into TheHive web UI.
 
-| Ref | Description |
-|----|-------------|
-| Ref 14 | Modified `ossec.conf` to ingest Sysmon logs |
-| Ref 15 | Verified Sysmon logs in Wazuh dashboard |
-| Ref 16 | Executed Mimikatz on Windows VM |
-| Ref 17 | Created Wazuh custom rule (`Rule ID: 100002`) |
-| Ref 18 | Verified successful detection alert |
+6. Deployed Wazuh Agent on Windows 11.
 
----
+7. Opened Wazuh Manager ports:
+   ```bash
+   ufw allow 1514
+   ufw allow 1515
 
-###  Step 4: SOAR Automation with Shuffle
+8. Verified Windows 11 agent appeared as Active in Wazuh dashboard.
 
-**Goal:** Automate SOC response using workflow orchestration.
+ Step 3: Custom Detection & Attack Simulation
+1. Modified ossec.conf on Windows agent to ingest:
+   ```bash 
+   Microsoft-Windows-Sysmon/Operational
+   
+2. Verified Sysmon logs were ingested successfully inside the Wazuh dashboard.
 
-| Ref | Description |
-|----|-------------|
-| Ref 19 | Created a new Shuffle workflow |
-| Ref 20 | Integrated Wazuh alerts with Shuffle webhook |
-| Ref 21 | Extracted file hash using Regex |
-| Ref 22 | Enriched hash using VirusTotal API |
-| Ref 23 | Generated API key for TheHive |
-| Ref 24 | Configured TheHive alert creation |
-| Ref 25 | Verified automatic alert creation in TheHive |
+3. Executed Mimikatz on Windows 11 VM.
 
----
+4. Created a custom Wazuh detection rule (local_rules.xml):
+   ```xml
+   <rule id="100002" level="15">
+   <if_group>sysmon_event1</if_group>
+   <field name="win.eventdata.originalFileName">mimikatz.exe</field>
+   <description>Mimikatz Execution Detected</description>
+   </rule>
+
+5. Confirmed alert generation in Wazuh after attack execution.
+
+### Step 4: SOAR Automation using Shuffle
+
+1 Created a new workflow in **Shuffle** and generated a Webhook URL.
+2 Configured **Wazuh** to send alerts with **Rule ID: 100002** to Shuffle.
+3 Built a **Regex extraction tool** inside Shuffle:
+  - Extracts the **SHA-256 hash** from Wazuh alert data.
+4 Integrated **VirusTotal API** for automated threat intelligence enrichment.
+5 Generated an **API key in TheHive** for the automation service account.
+6 Connected **Shuffle with TheHive API**.
+7 Enabled automatic alert creation in TheHive using enriched data.
 
 ##  Final Result
 
@@ -139,7 +159,7 @@ This confirmed a successful **end-to-end SOC automation pipeline**.
 
 ---
 
-## 🚀 Outcome
+##  Outcome
 
 This project demonstrates a real-world SOC workflow that combines:
 
