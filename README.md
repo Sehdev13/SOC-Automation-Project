@@ -32,9 +32,6 @@ The project focused on:
 - **SOAR Automation:**  
   Designed automated workflows in Shuffle to enrich alerts with VirusTotal and forward them into TheHive.
 
-- **Cloud & Virtualization:**  
-  Deployed Windows and Linux VMs with proper networking and firewall configurations.
-
 - **API Integrations:**  
   Integrated Wazuh, Shuffle, VirusTotal, and TheHive using webhooks and API keys.
 
